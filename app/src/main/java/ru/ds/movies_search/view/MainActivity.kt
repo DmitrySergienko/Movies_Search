@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import ru.ds.movies_search.R
 import ru.ds.movies_search.databinding.MainActivityBinding
+import ru.ds.movies_search.view.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,4 +20,7 @@ class MainActivity : AppCompatActivity() {
                     .commit()
         }
     }
+
+
+
 }
