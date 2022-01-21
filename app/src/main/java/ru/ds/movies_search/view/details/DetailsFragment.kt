@@ -12,42 +12,38 @@ import ru.ds.movies_search.model.Film
 
 class DetailsFragment : Fragment() {
 
+    private var _binding: FragmentDetailsBinding? = null
+    private val binding get() = _binding!!
 
-    class DetailsFragment : Fragment() {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentDetailsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        private var _binding: FragmentDetailsBinding? = null
-        private val binding get() = _binding!!
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val film = arguments?.getParcelable<Film>(BUNDLE_EXTRA)
+        if (film != null) {
+            val movie = film.movie
+            binding.movieName.text = movie.name
+            binding.movieType.text = "${getString(R.string.movie_type)} ${movie.name} ${movie.type}"
 
-        override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View {
-            _binding = FragmentDetailsBinding.inflate(inflater, container, false)
-            return binding.root
+            //binding.temperatureValue.text = film.temperature.toString()
+            //binding.feelsLikeValue.text = weather.feelsLike.toString()
         }
+    }
 
-        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            super.onViewCreated(view, savedInstanceState)
-            val film = arguments?.getParcelable<Film>(BUNDLE_EXTRA)
-            if (film != null) {
-                val movie = film.movie
-                binding.movieName.text = movie.name
-                binding.movieType.text = "${getString(R.string.movie_type)} ${movie.name} ${movie.type}"
+    companion object {
 
-                //binding.temperatureValue.text = film.temperature.toString()
-                //binding.feelsLikeValue.text = weather.feelsLike.toString()
-            }
-        }
+        const val BUNDLE_EXTRA = "film"
 
-        companion object {
-
-            const val BUNDLE_EXTRA = "film"
-
-            fun newInstance(bundle: Bundle): DetailsFragment {
-                val fragment = DetailsFragment()
-                fragment.arguments = bundle
-                return fragment
-            }
+        fun newInstance(bundle: Bundle): DetailsFragment {
+            val fragment = DetailsFragment()
+            fragment.arguments = bundle
+            return fragment
         }
     }
 }

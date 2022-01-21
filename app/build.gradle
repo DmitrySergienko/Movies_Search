@@ -8,6 +8,7 @@ android {
     compileSdkVersion 31
     buildToolsVersion "30.0.2"
 
+
     defaultConfig {
         applicationId "ru.ds.movies_search"
         minSdkVersion 21
@@ -34,7 +35,9 @@ android {
     buildFeatures{
         viewBinding true
     }
+
 }
+
 
 dependencies {
 

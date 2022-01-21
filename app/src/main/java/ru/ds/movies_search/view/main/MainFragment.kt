@@ -14,6 +14,8 @@ import ru.ds.movies_search.databinding.FragmentMainBinding
 import ru.ds.movies_search.model.Film
 import ru.ds.movies_search.view.details.DetailsFragment
 
+
+
 import ru.ds.movies_search.viewModel.AppState
 import ru.ds.movies_search.viewModel.MainViewModel
 
@@ -28,7 +30,7 @@ class MainFragment : Fragment() {
             val manager = activity?.supportFragmentManager
             if (manager != null) {
                 val bundle = Bundle()
-                bundle.putParcelable(DetailsFragment.BUNDLE_EXTRA, film)
+                bundle.putParcelable(DetailsFragment.BUNDLE_EXTRA,film)
                 manager.beginTransaction()
                     .replace(R.id.container, DetailsFragment.newInstance(bundle))
                     .addToBackStack("")
