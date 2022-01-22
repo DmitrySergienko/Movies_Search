@@ -1,7 +1,7 @@
 package ru.ds.movies_search.viewModel
 
 import ru.ds.movies_search.model.Film
-import ru.ds.movies_search.model.Movie
+
 
 //класс для отображения состояния приложения
 sealed class AppState{
