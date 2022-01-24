@@ -12,26 +12,24 @@ data class Film(
 
 ) : Parcelable
 
-fun getDefaultMovie() = Movie ("AnyFilm","cartoons",100)
+fun getDefaultMovie() = Movie("AnyFilm", "cartoons", 100)
 
-fun getWoldM0vies(): List<Film>{
-    return listOf(
-        Film(Movie("Storm","cartoons",90)),
-        Film(Movie("Storm1","horror",90)),
-        Film(Movie("Storm2","comedy",100)),
-        Film(Movie("Storm3","cartoons",100))
+fun getWoldM0vies() = listOf(
+    Film(Movie("Storm", "cartoons", 90)),
+    Film(Movie("Storm1", "horror", 90)),
+    Film(Movie("Storm2", "comedy", 100)),
+    Film(Movie("Storm3", "cartoons", 100))
 
-    )
-}
-fun getRusM0vies(): List<Film>{
-    return listOf(
-        Film(Movie("Planet0","cartoons",90)),
-        Film(Movie("Planet1","horror",90)),
-        Film(Movie("Planet2","comedy",100)),
-        Film(Movie("Planet3","cartoons",100))
+)
 
-    )
-}
+fun getRusM0vies() = listOf(
+    Film(Movie("Planet0", "cartoons", 90)),
+    Film(Movie("Planet1", "horror", 90)),
+    Film(Movie("Planet2", "comedy", 100)),
+    Film(Movie("Planet3", "cartoons", 100))
+
+)
+
 
 
 

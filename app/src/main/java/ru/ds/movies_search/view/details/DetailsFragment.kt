@@ -25,12 +25,13 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val film = arguments?.getParcelable<Film>(BUNDLE_EXTRA)
-        if (film != null) {
-            val movie = film.movie
-            binding.movieName.text = movie.name
-            binding.movieType.text = "${getString(R.string.movie_type)} ${movie.name} ${movie.type}"
 
+//обращаемся к arguments, если они не Null вдергиваем из них Parceble типизированный by Film, ели не Null выполняем то, что в скобках расширения let
+        arguments?.getParcelable<Film>(BUNDLE_EXTRA)?.let { film ->
+            film.movie.also {
+                binding.movieName.text = it.name
+                binding.movieType.text = "${getString(R.string.movie_type)} ${it.name} ${it.type}"
+            }
             //binding.temperatureValue.text = film.temperature.toString()
             //binding.feelsLikeValue.text = weather.feelsLike.toString()
         }
