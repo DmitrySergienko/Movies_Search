@@ -32,25 +32,19 @@ class MainFragmentAdapter(private var onItemViewClickListener: OnItemViewClickLi
         holder.bind(moviesData[position])
     }
 
-    override fun getItemCount(): Int {
-        return moviesData.size
-    }
+    override fun getItemCount() = moviesData.size
+
 
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(film: Film) {
-            itemView.findViewById<TextView>(R.id.mainFragmentRecyclerItemTextView).text = film.movie.name
-            itemView.setOnClickListener {
-                Toast.makeText(
-                    itemView.context,
-                    film.movie.name,
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-            itemView.setOnClickListener {
-                onItemViewClickListener?.onItemViewClick(film)
-            }
+            itemView.apply {
+                findViewById<TextView>(R.id.mainFragmentRecyclerItemTextView).text = film.movie.name
 
+                setOnClickListener {
+                    onItemViewClickListener?.onItemViewClick(film)
+                }
+            }
         }
     }
 

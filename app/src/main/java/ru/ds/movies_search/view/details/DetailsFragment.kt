@@ -37,6 +37,11 @@ class DetailsFragment : Fragment() {
         }
     }
 
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
+    }
+
     companion object {
 
         const val BUNDLE_EXTRA = "film"

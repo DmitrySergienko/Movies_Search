@@ -9,9 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_main.*
 import ru.ds.movies_search.R
 import ru.ds.movies_search.databinding.FragmentMainBinding
 import ru.ds.movies_search.model.Film
+import ru.ds.movies_search.myFirstSnackBar
+import ru.ds.movies_search.showSnackBar
 import ru.ds.movies_search.view.details.DetailsFragment
 
 
@@ -24,7 +27,12 @@ class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: MainViewModel
+
+    //отложенная или линивая инициализация ViewModel
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(this)[MainViewModel::class.java]
+    }
+
     private val adapter = MainFragmentAdapter(object : OnItemViewClickListener {
         override fun onItemViewClick(film: Film) {
             val manager = activity?.supportFragmentManager
@@ -50,11 +58,14 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.mainFragmentRecyclerView.adapter = adapter
-        binding.mainFragmentFAB.setOnClickListener { changeWeatherDataSet() }
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderData(it) })
-        viewModel.getMovieFromLocalSourceRus()
+        with(binding) {
+            mainFragmentRecyclerView.adapter = adapter
+            mainFragmentFAB.setOnClickListener { changeWeatherDataSet() }
+        }
+        viewModel.apply {
+            getLiveData().observe(viewLifecycleOwner, Observer { renderData(it) })
+            getMovieFromLocalSourceRus()
+        }
     }
 
     private fun changeWeatherDataSet() {
@@ -71,27 +82,37 @@ class MainFragment : Fragment() {
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Success -> {
-                binding.mainFragmentLoadingLayout.visibility = View.GONE
-                binding.mainFragmentRecyclerView.isVisible = true
+                with(binding) {
+                    mainFragmentLoadingLayout.visibility = View.GONE
+                    mainFragmentRecyclerView.isVisible = true
+                }
                 adapter.setWeather(appState.movieData)
             }
             is AppState.Loading -> {
-                binding.mainFragmentLoadingLayout.visibility = View.VISIBLE
-                binding.mainFragmentRecyclerView.isVisible = false
+                with(binding) {
+                    mainFragmentLoadingLayout.visibility = View.VISIBLE
+                    mainFragmentFAB.myFirstSnackBar(
+                        actionText = getString(R.string.reload),
+                        { viewModel.getMovieFromLocalSourceRus() },
+                    )
+                    mainFragmentRecyclerView.isVisible = false
+                }
             }
             is AppState.Error -> {
-                binding.mainFragmentLoadingLayout.visibility = View.GONE
-                Snackbar
-                    .make(binding.mainFragmentFAB, getString(R.string.error), Snackbar.LENGTH_INDEFINITE)
-                    .setAction(getString(R.string.reload)) {viewModel.getMovieFromLocalSourceRus() }
-                    .show()
+                with(binding) {
+                    mainFragmentLoadingLayout.visibility = View.GONE
+                    mainFragmentFAB.showSnackBar(text = getString(R.string.error),
+                        actionText = getString(R.string.reload),
+                        { viewModel.getMovieFromLocalSourceRus() })
+                }
             }
         }
     }
 
     override fun onDestroy() {
-        adapter.removeListener()
+        _binding = null
         super.onDestroy()
+        adapter.removeListener()
     }
 
     companion object {
