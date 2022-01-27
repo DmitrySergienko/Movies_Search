@@ -21,6 +21,13 @@ import ru.ds.movies_search.view.details.DetailsFragment
 
 import ru.ds.movies_search.viewModel.AppState
 import ru.ds.movies_search.viewModel.MainViewModel
+import java.io.BufferedInputStream
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.io.OutputStream
+import java.net.HttpURLConnection
+import java.net.URL
+import javax.net.ssl.HttpsURLConnection
 
 class MainFragment : Fragment() {
 
@@ -108,6 +115,21 @@ class MainFragment : Fragment() {
             }
         }
     }
+//выходим в интернет
+  //  private fun connection(){
+  //      //открываем соединение
+  //      var urlConnection:HttpsURLConnection? = null
+  //  val url = URL("ya.ru") // указать адресс URI
+  //  urlConnection = url.openConnection() as HttpsURLConnection // устанавливаем соединение
+  //  urlConnection.requestMethod = "GET" // устанавливаем тип запроса
+  //  urlConnection.readTimeout = 10000 // устанвливаем timeout на чтение
+  //  val out: OutputStream = BufferedInputStream(urlConnection.inputStream) // пишем
+  //  writeStrim(out)
+  //  val inf = BufferedReader(InputStreamReader(urlConnection.inputStream))
+  //  urlConnection.disconnect() // закоываем соединенение
+
+
+   // }
 
     override fun onDestroy() {
         _binding = null
