@@ -1,11 +1,13 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
 }
 
 android {
     compileSdkVersion 31
     buildToolsVersion "30.0.2"
+
 
     defaultConfig {
         applicationId "ru.ds.movies_search"
@@ -30,7 +32,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures{
+        viewBinding true
+    }
+
 }
+
 
 dependencies {
 
