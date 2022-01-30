@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import ru.ds.movies_search.model.Film
 import ru.ds.movies_search.model.IRepository
 import ru.ds.movies_search.model.Repository
+import java.lang.Error
 import java.lang.Thread.sleep
 
 
@@ -32,6 +33,7 @@ class MainViewModel(private val liveDataToObserve : MutableLiveData<AppState> = 
                     if (isRussian) repository.getMovieFromLocalBdRus()
                     else repository.getMovieFromLocalBdWorld()
                 )
+
             )
         }.start()
     }
